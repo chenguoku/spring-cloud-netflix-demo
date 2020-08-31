@@ -1,0 +1,29 @@
+server:
+  port: 9091
+
+spring:
+  application:
+    name: hh-cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: hh_user
+          uri: lb://hh-user
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=0
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://192.168.30.133:9411/
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9090/eureka/

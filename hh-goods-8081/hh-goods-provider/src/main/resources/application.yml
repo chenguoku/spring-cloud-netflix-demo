@@ -1,0 +1,36 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /goods
+spring:
+  application:
+    name: hh-goods
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://192.168.30.133:9411/
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9090/eureka/
+
+#启用feign的熔断器
+feign:
+  hystrix:
+    enabled: true
+
+#配置熔断连接超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000 #缺省为1000
+
+#fegin连接超时时间
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
